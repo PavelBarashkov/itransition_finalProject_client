@@ -1,4 +1,5 @@
 import  {GoogleLogin}  from 'react-google-login';
+import {AiOutlineGoogle} from "react-icons/ai"
 import axios from 'axios';
 
 const clientId = '115284206815-itf8mprr1ioqj9pltsd2fqoiv5r7dqjs.apps.googleusercontent.com';
@@ -22,11 +23,20 @@ export function LoginGoogle() {
   return (
             <GoogleLogin
                 clientId={clientId}
-                buttonText="Войти через Google"
+                
+                // buttonText="Войти через Google"
                 onSuccess={onSuccess}
                 onFailure={onFailure}
                 cookiePolicy={'single_host_origin'}
-                isSignedIn={true}
+                isSignedIn={false}
+                render={renderProps => (
+                    <button 
+                      onClick={renderProps.onClick} 
+                      style={{border: 'none', backgroundColor: 'transparent'}}
+                    >
+                      <AiOutlineGoogle size={'2em'} />
+                    </button>
+                  )}
         />
 
   );

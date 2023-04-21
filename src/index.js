@@ -1,11 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React, { createContext } from 'react';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { UserReview } from './review/userReview';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
+export const Context = createContext(null)
+
+ReactDOM.render(
+  <Context.Provider value={{
+    user: new UserReview()
+  }}>
     <App />
-  </React.StrictMode>
+  </Context.Provider>,
+  document.getElementById('root')
 );

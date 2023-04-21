@@ -1,6 +1,6 @@
 import FacebookLogin from 'react-facebook-login';
 
-export const FacebookLoginButton = ({ onFacebookLogin }) => {
+export const LoginFacebook = ({ onFacebookLogin }) => {
     const responseFacebook = (response) => {
       onFacebookLogin(response.accessToken);
     };
@@ -12,4 +12,4 @@ export const FacebookLoginButton = ({ onFacebookLogin }) => {
         callback={responseFacebook}
       />
     );
-  };
+};
