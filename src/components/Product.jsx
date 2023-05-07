@@ -42,7 +42,6 @@ export const Product = ({data}) => {
         <Autocomplete
           freeSolo
           classes={{root: classes.autocomplete}}
-        
           style={{borderRadius: 5, }}
           options={data}
           getOptionLabel={(item) => item.name}
