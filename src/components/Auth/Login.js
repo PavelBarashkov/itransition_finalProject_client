@@ -30,17 +30,18 @@ export const Login = observer(() => {
     const [validatedRegistration, setValidatedRegistration] = useState(false);
     
     const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
         event.preventDefault();
-        event.stopPropagation();
-    }
-    if(isLogin) {
-        setValidatedLogin(true);
-    } 
-    if (!isLogin) {
-        setValidatedRegistration(true)
-    }
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        if(isLogin) {
+            setValidatedLogin(true);
+        } 
+        if (!isLogin) {
+            setValidatedRegistration(true)
+        }
     };
 
     function swithRegistration() {
