@@ -118,6 +118,9 @@
     display: flex;
     column-gap: 10px;
 }
+.container_table {
+    overflow-x: scroll
+}
 
 /*review-form */
 
@@ -153,3 +156,4 @@
 .btn_auth--reg {
     margin-top: 10px;
 }
+

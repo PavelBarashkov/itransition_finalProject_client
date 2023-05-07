@@ -56,12 +56,14 @@ export const Home = observer(() => {
                 localId={id}
                 fetchReviews={fetchRewiewId}
             />
-
-            <ReviewTable 
-                myReviews={myReviews} 
-                setMyReviews={setMyReviews} 
-                fetchRewiewId={fetchRewiewId}
-            />
+            <div className="container_table">
+                <ReviewTable 
+                    myReviews={myReviews} 
+                    setMyReviews={setMyReviews} 
+                    fetchRewiewId={fetchRewiewId}
+                    style={{overflowX: 'auto'}}
+                />
+            </div>
         </Container>
     )
         

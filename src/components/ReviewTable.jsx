@@ -121,7 +121,7 @@ export const ReviewTable = observer(({myReviews, setMyReviews, fetchRewiewId}) =
             <Button variant="outline-secondary" onClick={sortType}><TbArrowsDownUp/></Button>{' '}
         </ButtonGroup>
     </ButtonToolbar>
-        <Table striped bordered hover style={{overflowX: 'auto'}}>
+        <Table striped bordered hover >
             <thead>
                 <tr>
                 <th>
