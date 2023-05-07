@@ -27,12 +27,10 @@ export const Product = ({data}) => {
         },
         input: {
             height: '5px !important',
-            zIndex: 2
         },
         label: {
             marginTop: '-5px !important',
             fontSize: '14px !important',
-
         },
         
     });
