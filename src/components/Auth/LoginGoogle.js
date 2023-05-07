@@ -10,7 +10,7 @@ export function LoginGoogle() {
         const token = res.tokenId;
 
         try{
-            const res = await axios.post('http://localhost:5000/api/authSocial/google', {token});
+            const res = await axios.post('https://itransitionfinalprojectserver-production.up.railway.app/api/authSocial/google', {token});
             const { data } = res;
             localStorage.setItem('token', data.token); 
             await user.setUser(user);
