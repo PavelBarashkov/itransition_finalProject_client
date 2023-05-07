@@ -115,10 +115,10 @@ export const ReviewTable = observer(({myReviews, setMyReviews, fetchRewiewId}) =
         <Container style={{marginTop: '25px'}}>
         <ButtonToolbar className="mb-3" aria-label="Toolbar with Button groups">
         <ButtonGroup className="me-2" aria-label="First group">
-            <Button variant="danger" onClick={removeReview}><IoTrashOutline/></Button>{' '}
-            <Button variant="secondary" onClick={sortData}><TbCalendar/></Button>{' '}
-            <Button variant="secondary" onClick={sordLike}><TbHeart/></Button>{' '}
-            <Button variant="secondary" onClick={sortType}><TbArrowsDownUp/></Button>{' '}
+            <Button variant="outline-danger" onClick={removeReview}><IoTrashOutline/></Button>{' '}
+            <Button variant="outline-secondary" onClick={sortData}><TbCalendar/></Button>{' '}
+            <Button variant="outline-secondary" onClick={sordLike}><TbHeart/></Button>{' '}
+            <Button variant="outline-secondary" onClick={sortType}><TbArrowsDownUp/></Button>{' '}
         </ButtonGroup>
     </ButtonToolbar>
         <Table striped bordered hover style={{overflowX: 'auto'}}>
@@ -158,7 +158,7 @@ export const ReviewTable = observer(({myReviews, setMyReviews, fetchRewiewId}) =
                         <td>{item.types ? item?.types[0]?.name : 'Пусто'}</td>
                         <td>
                             <Button 
-                                 variant="warning"
+                                variant="outline-secondary"
                                 onClick={() => {
                                     review.setReviewId(item) 
                                     review.setSelectedTag(item?.tags)
@@ -171,7 +171,7 @@ export const ReviewTable = observer(({myReviews, setMyReviews, fetchRewiewId}) =
                         </td>
                         <td>
                             <Button 
-                                variant="info"
+                                variant="outline-secondary"
                                 onClick={() => {
                                     navigate(REVIEW_ROUTE + '/' + item.id)
                                 }}

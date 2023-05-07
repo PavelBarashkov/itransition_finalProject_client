@@ -53,7 +53,7 @@ export class Service {
         return {data};
     }
 
-    static async updateReview(id, title, name, body, rating, tag, type, imageId) {
+    static async updateReview(id, title, name, body, rating, tag, type, imageId=null) {
         const {data} = await $authHost.put(`api/review/update/${id}`, { title, name, body, rating, tag, type, imageId });
         return data;
     }

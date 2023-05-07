@@ -23,7 +23,7 @@ export const FormReview = ({ review, localId, ...props}) => {
     const [validated, setValidated] = useState(false);
     const [picture, setPicture] = useState(null)
     const [editPicture, setEditPicture] = useState(null)
-    const [editImg, setEditImg] = useState(review?.reviewId ? review?.reviewId?.images[0].id : '')
+    const [editImg, setEditImg] = useState(null)
     const [alert, setAlert] = useState(null);
 
     // Constants
@@ -34,7 +34,7 @@ export const FormReview = ({ review, localId, ...props}) => {
         setEditPicture(review?.reviewId?.images && review.reviewId.images[0]?.pathToCloudStorage )
         setCategory(review.reviewId && review?.reviewId?.types[0]?.name);
         setTags(review.reviewId && review.reviewId.tags);
-        setEditImg(review?.reviewId && review?.reviewId?.images[0].id);    
+        setEditImg(review?.reviewId && review?.reviewId?.images[0]?.id);    
         setTitle(review.reviewId && review.reviewId.title);
         setTextReview(review.reviewId && review.reviewId.body);
         setAuthorsAssessment(review.reviewId && review.reviewId.rating);
@@ -109,7 +109,7 @@ export const FormReview = ({ review, localId, ...props}) => {
             setTitle('');
             setTextReview('');
             setTags(null);
-            setAuthorsAssessment(1);
+            setAuthorsAssessment(0);
             review.setSelectedType(null);
             review.setSelectedTag(null);
         }
@@ -311,7 +311,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                             </Row>
     
                             <Button 
-                                variant="primary" 
+                                variant="outline-success"
                                 type="submit"
                                 disabled={!title || !textReview}
                                 onClick={() => handleReview('update')}
@@ -459,7 +459,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                             </Row>
     
                             <Button 
-                                variant="primary" 
+                                variant="outline-success"
                                 type="submit"
                                 onClick={() => handleReview('create')}
                                 disabled={!title || !textReview}
