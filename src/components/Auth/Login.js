@@ -6,8 +6,9 @@ import { Context } from "../../index";
 import Col from 'react-bootstrap/Col';
 import { login, registration } from '../../API/http/userAPI';
 import {FacebookAuth} from "./LoginFacebook"
+import { observer } from 'mobx-react-lite';
 
-export const Login = () => {
+export const Login = observer(() => {
     const {user} = useContext(Context);    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -29,8 +30,10 @@ export const Login = () => {
     const [validatedRegistration, setValidatedRegistration] = useState(false);
     
     const handleSubmit = (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
+
         event.preventDefault();
         event.stopPropagation();
     }
@@ -56,6 +59,7 @@ export const Login = () => {
             }
             await user.setUser(user);
             await user.setIsAuth(true);
+            console.log("k")
         } catch (e) {
             alert(e.response.data.message);
         }
@@ -169,7 +173,7 @@ export const Login = () => {
                             type="submit" 
                             onClick={click}
                         >
-                            Вход
+                            Зарегистрироваться
                         </Button>
                         <Button 
                             variant="outline-warning"
@@ -185,4 +189,4 @@ export const Login = () => {
         </Container>
         )
 
-}
+})
