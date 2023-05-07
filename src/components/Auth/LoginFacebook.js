@@ -8,7 +8,7 @@ import axios from 'axios';
 export const FacebookAuth = () => {
     const {user} = useContext(Context);
   const responseFacebook = (response) => {
-    axios.post('http://localhost:5000/api/authSocial/facebook', { accessToken: response.accessToken })
+    axios.post('https://itransitionfinalprojectserver-production.up.railway.app/api/authSocial/facebook', { accessToken: response.accessToken })
       .then(async res => {
         const { token } = res.data;
         localStorage.setItem('token', token);

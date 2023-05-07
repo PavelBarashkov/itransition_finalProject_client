@@ -3,7 +3,6 @@ import {AiOutlineGoogle} from "react-icons/ai"
 import axios from 'axios';
 import { useContext } from 'react';
 import { Context } from '../..';
-const clientId = '115284206815-itf8mprr1ioqj9pltsd2fqoiv5r7dqjs.apps.googleusercontent.com';
 
 export function LoginGoogle() {
     const {user} = useContext(Context)
@@ -11,7 +10,7 @@ export function LoginGoogle() {
         const token = res.tokenId;
 
         try{
-            const res = await axios.post('http://localhost:5000/api/authSocial/google', {token});
+            const res = await axios.post('https://itransitionfinalprojectserver-production.up.railway.app/api/authSocial/google', {token});
             const { data } = res;
             localStorage.setItem('token', data.token); 
             await user.setUser(user);
