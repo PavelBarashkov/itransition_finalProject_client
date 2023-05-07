@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,10 +35,121 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 
 .my-facebook-button-class {
   border: none;
   background-color: white;
+}
+
+
+/*Nav*/
+.nav {
+  border: solid 1px black;
+  font-size: 12px;
+}
+
+.title_review { 
+  box-Shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+  padding: 10px 25px;
+  margin: 0 auto;
+  width: max-content;
+}
+
+.Nav_Tags {
+  margin-bottom: 50px;
+}
+
+
+/*Card item*/
+.card_aftor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.card_aftor_icon {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.btn_like {
+    color: #FFB6C1;
+}
+
+.tag_item {
+    display: inline-block;
+    align-items: center;
+    padding: 3px 8px;
+    margin-left: 5px;
+    border-radius: 10px;
+
+    background-color: #FFB6C1;
+    font-size: 11px;
+}
+
+/*page review*/
+
+.card_aftor--review{
+    display: flex;
+    justify-content:flex-start;
+    column-gap: 25px;
+    align-items: center;
+}
+
+.review_info {
+    background-color: rgb(245, 245, 245);
+    border-radius: 10px;
+    padding: 15px
+}
+
+.text_review {
+    margin-top: 25px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.rating {
+    display: flex;
+    column-gap: 10px;
+}
+
+/*review-form */
+
+.product_form {
+    width: 10px;
+}
+
+.alert {
+    position: fixed;
+    top: 10%;
+}
+
+/*modal Auth*/
+
+.auth_social {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    column-gap: 15px;
+}
+
+.form_Auth {
+    row-gap: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn_auth {
+    display: flex;
+    margin: 0 auto;
+}
+
+.btn_auth--reg {
+    margin-top: 10px;
 }

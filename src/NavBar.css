@@ -1,0 +1,14 @@
+#Nav_Dropdown {
+    color:#6c757d;
+    padding: 6px 12px;
+}
+#Nav_Dropdown:hover {
+    color: white;
+    padding: 6px 12px;
+}
+
+@media (max-width: 1000px) {
+    #basic-navbar-nav {
+        margin-top: 25px;
+    }
+}

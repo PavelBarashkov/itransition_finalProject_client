@@ -11,7 +11,7 @@ export const authRotes = [
         element: <Admin/>
     },
     {
-        path: HOME_ROUTE,
+        path: HOME_ROUTE + '/:id',
         element: <Home/>,
     },
     {
@@ -26,7 +26,7 @@ export const publicRoutes = [
         element: <Main/>
     },
     {
-        path: REVIEW_ROUTE,
+        path: REVIEW_ROUTE + '/:id',
         element: <Review/>
     },
     {
