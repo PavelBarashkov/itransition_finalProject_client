@@ -33,9 +33,6 @@ export const Product = ({data}) => {
             fontSize: '14px !important',
 
         },
-        labelShrink: {
-            color: 'blue'
-        }
         
     });
     const classes = useStyles();
@@ -51,7 +48,6 @@ export const Product = ({data}) => {
           renderInput={(params) => 
             <TextField 
               {...params} 
-              label='Произведение' 
               onChange={(e) => review.setSelectedProduct(e.target.value)}
               InputProps={{
                 ...params.InputProps,
@@ -65,7 +61,7 @@ export const Product = ({data}) => {
                     ...params.InputProps.classes,
                     root: classes.label,
                     shrink: classes.labelShrink,
-                }
+                },
               }}
             />
           }
