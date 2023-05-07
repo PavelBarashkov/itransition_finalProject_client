@@ -137,7 +137,8 @@ export const ReviewTable = observer(({myReviews, setMyReviews, fetchRewiewId}) =
                 <th>Дата</th>
                 <th>Лайки</th>
                 <th>Котегория</th>
-
+                <th></th>
+                <th></th>
                 </tr>
             </thead>
             <tbody>

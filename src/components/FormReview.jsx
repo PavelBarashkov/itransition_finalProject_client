@@ -13,7 +13,7 @@ export const FormReview = ({ review, localId, ...props}) => {
     const [title, setTitle] = useState('');
     // const [name, setName] = useState('');
     const [textReview, setTextReview] = useState('');
-    const [authorsAssessment, setAuthorsAssessment] = useState(1);
+    const [authorsAssessment, setAuthorsAssessment] = useState(0);
     const [category, setCategory] = useState(review?.reviewId ? review?.reviewId?.types.name : '');
     const [tags, setTags] = useState(null);
     const [product, setProduct] = useState(null);
@@ -123,6 +123,10 @@ export const FormReview = ({ review, localId, ...props}) => {
 
 
     const handleReview = (action) => {
+        if (!review.selectedType) {
+            setAlert({ data: 'Выберите категорию', status: 404 });
+            return;
+          }
         if (action === 'create') {
           Service.createReview(
             imgUrl?.data?.id,
@@ -235,7 +239,6 @@ export const FormReview = ({ review, localId, ...props}) => {
                                         <Form.Control 
                                             required
                                             type="text" 
-                                            placeholder="Обзор на Кинга" 
                                             value={title}
                                             onChange={event => setTitle(event.target.value)}
                                         />
@@ -373,7 +376,6 @@ export const FormReview = ({ review, localId, ...props}) => {
                                         <Form.Control 
                                             required
                                             type="text" 
-                                            placeholder="Обзор на Кинга" 
                                             value={title}
                                             onChange={event => setTitle(event.target.value)}
                                         />
@@ -445,7 +447,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                                             selected 
                                             hidden
                                         >
-                                            {'Категория'}
+                                            {''}
                                         </option>
                                         {review?.types?.map(item => 
                                             <option value={item.id}>
