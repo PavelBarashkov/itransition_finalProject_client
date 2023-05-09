@@ -26,7 +26,7 @@ export const Product = ({data}) => {
         autocomplete: {
         },
         input: {
-            height: '5px !important',
+            height: '4px !important',
         },
         label: {
             marginTop: '-5px !important',
@@ -39,6 +39,7 @@ export const Product = ({data}) => {
     return (
         <Autocomplete
           freeSolo
+          ListboxProps={{ className: "list_autcompl" }}
           classes={{root: classes.autocomplete}}
           style={{borderRadius: 5, }}
           options={data}
@@ -53,12 +54,14 @@ export const Product = ({data}) => {
                   ...params.InputProps.classes,
                   input: classes.input,
                 },
+                className: `${params.InputProps.className} Nav_Tags`
               }}
               InputLabelProps={{
                 classes: {
                     ...params.InputProps.classes,
                     root: classes.label,
                     shrink: classes.labelShrink,
+                    className:"Nav_Tags"
                 },
               }}
             />

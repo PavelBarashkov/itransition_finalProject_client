@@ -7,8 +7,11 @@ import { Product } from "./Product";
 import { Tags } from "../components/Tags";
 import { Spiner } from "./Spinner ";
 import { Alert } from "./Alert";
-export const FormReview = ({ review, localId, ...props}) => {
 
+import { useTranslation } from "react-i18next";
+
+export const FormReview = ({ review, localId, ...props}) => {
+    const {t} = useTranslation(["home"])
     // State
     const [title, setTitle] = useState('');
     // const [name, setName] = useState('');
@@ -192,25 +195,25 @@ export const FormReview = ({ review, localId, ...props}) => {
                         onDragLeave={dragLeaveHandler} 
                         onDragOver={dragEnterHandler}
                     >
-                        <Col md={4} className="">
+                        <Col md={4} className="" style={{padding: 0}}>
                             {isPictureLoading ? (
                                 <Spiner />
                             ) : (
                                 <>
                                 {editPicture ? (
                                     <Col>
-                                    <Card>
+                                    <Card className="form_img">
                                         <Card.Img src={editPicture} />
                                     </Card>
-                                    <MuiFileInput value={file} onChange={(file) => addImg(file)} />
+                                    <MuiFileInput className="form_img" value={file} onChange={(file) => addImg(file)} />
 
                                     </Col>
                                 ) : (
                                     <Card.Body>
-                                    <ListGroup className="list-group-flush">
-                                        <ListGroup.Item>
+                                    <ListGroup className="list-group-flush form_img">
+                                        <ListGroup.Item className="form_img">
                                         <div>
-                                            загрузить изображение
+                                            {t("uploadImage")}
                                             <MuiFileInput value={file} onChange={(file) => addImg(file)} />
                                         </div>
                                         </ListGroup.Item>
@@ -235,9 +238,10 @@ export const FormReview = ({ review, localId, ...props}) => {
                                 className="mb-3"
                             >
                                 <Form.Group as={Col}>
-                                    <Form.Label>Название</Form.Label>
+                                    <Form.Label id='text'>{t('title')}</Form.Label>
                                         <Form.Control 
                                             required
+                                            className="form_title"
                                             type="text" 
                                             value={title}
                                             onChange={event => setTitle(event.target.value)}
@@ -245,7 +249,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                                 </Form.Group>
     
                                 <Form.Group as={Col} >
-                                    <Form.Label>Произведения </Form.Label>
+                                    <Form.Label id='text' >{t("product")}</Form.Label>
                                         <Product 
                                             data={review?.product}
                                         />
@@ -253,9 +257,10 @@ export const FormReview = ({ review, localId, ...props}) => {
                             </Row>
     
                             <Form.Group className="mb-3" controlId="formGridAddress1">
-                                <FloatingLabel controlId="floatingTextarea2" label="Обзор">
+                                <FloatingLabel id="text" label={t("review")}>
                                     <Form.Control
                                         required
+                                        className="review_form_text"
                                         as="textarea"
                                         placeholder="Leave a comment here"
                                         style={{ height: '100px' }}
@@ -266,22 +271,24 @@ export const FormReview = ({ review, localId, ...props}) => {
                             </Form.Group>
     
                             <Form.Group className="mb-3" controlId="formGridAddress2">
-                                <Form.Label>Теги</Form.Label>
+                                <Form.Label id='text'>{t("tags")}</Form.Label>
                                 <Tags tags={tags} setTags={setTags}/>
                             </Form.Group>
     
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridCity">
-                                    <Form.Label>Оценка</Form.Label>
+                                    <Form.Label id='text'>{t("grade")}</Form.Label>
                                     <Form.Select 
                                         required
-                                        defaultValue={'Котегория'}
+                                        id='text'
+                                        className="grade_form"
+                                        defaultValue={t("grade")}
                                         value={authorsAssessment}
                                         onChange={event => setAuthorsAssessment(event.target.value)}
                                     >
-                                        <option value="" elected hidden>{'Оценка от Автора'}</option>
+                                        <option  value="" elected hidden>{t("grade")}</option>
                                             {number.map(item => 
-                                                <option>{item}</option>
+                                                <option >{item}</option>
                                                 )
                                             }
                                         
@@ -289,8 +296,10 @@ export const FormReview = ({ review, localId, ...props}) => {
                                 </Form.Group>
     
                                 <Form.Group as={Col} controlId="formGridState">
-                                    <Form.Label>Категория</Form.Label>
+                                    <Form.Label id='text'>{t("category")}</Form.Label>
                                     <Form.Select
+                                        className="type_form"
+                                        id="text"
                                         onChange={(e)=> {
                                             review.setSelectedType(e.target.value)
                                             setCategory(e.target.value)
@@ -306,7 +315,10 @@ export const FormReview = ({ review, localId, ...props}) => {
                                         </option>
                                         {review?.types?.map(item => 
                                             <option value={item.name} key={item.userId}>
-                                                {item.name}
+                                                 {item?.name === "Кино" ? t("common:cinema" ) :
+                                                item?.name === "Книги" ? t("common:book") :
+                                                item?.name === "Сериалы" ? t("common:series") :
+                                                t(item?.name) || item?.name}
                                             </option>
                                         )}
                                     </Form.Select>
@@ -319,7 +331,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                                 disabled={!title || !textReview}
                                 onClick={() => handleReview('update')}
                             >
-                                Редоктировать
+                                {t("edit")}
                             </Button>
                             {alert && <Alert status={alert.status} data={alert.data}/>}
 
@@ -335,27 +347,26 @@ export const FormReview = ({ review, localId, ...props}) => {
                         onDragLeave={dragLeaveHandler}
                         onDragOver={dragEnterHandler}
                     >
-                    <Col md={4} className="">
+                    <Col md={4}  style={{padding: 0}}>
                         {isPictureLoading ? (
                             <Spiner />
                         ) : (
                             <>
                             {picture ? (
                                 <Col>
-                                <Card>
+                                <Card className="form_img">
                                     <Card.Img src={picture} />
                                     <MuiFileInput value={file} onChange={(file) => addImg(file)} />
                                 </Card>
 
                                 </Col>
                             ) : (
-                                <Card.Body>
-                                <ListGroup className="list-group-flush">
-                                    <ListGroup.Item>
-                                    <div>
-                                        загрузить изображение
+                                <Card.Body >
+                                <ListGroup className="list-group-flush form_img">
+                                    <ListGroup.Item className="form_img">
+                                    <div style={{marginBottom: '8px'}}> {t("uploadImage")} </div>
+                                       
                                         <MuiFileInput value={file} onChange={(file) => addImg(file)} />
-                                    </div>
                                     </ListGroup.Item>
                                 </ListGroup>
                                 </Card.Body>
@@ -372,8 +383,9 @@ export const FormReview = ({ review, localId, ...props}) => {
                     >
                             <Row className="mb-3">
                                 <Form.Group as={Col}>
-                                    <Form.Label>Название</Form.Label>
+                                    <Form.Label id='text'>{t('title')}</Form.Label>
                                         <Form.Control 
+                                            className="form_title"
                                             required
                                             type="text" 
                                             value={title}
@@ -382,7 +394,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                                 </Form.Group>
     
                                 <Form.Group as={Col} >
-                                    <Form.Label>Произведения </Form.Label>
+                                    <Form.Label id='text'>{t("product")} </Form.Label>
                                     <Product 
                                         data={review?.product}
                                     />
@@ -390,8 +402,9 @@ export const FormReview = ({ review, localId, ...props}) => {
                             </Row>
     
                             <Form.Group className="mb-3">
-                                <FloatingLabel label="Обзор">
+                                <FloatingLabel id='text' label={t("review")}>
                                     <Form.Control
+                                        className="review_form_text"
                                         required
                                         as="textarea"
                                         placeholder="Leave a comment here"
@@ -403,7 +416,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                             </Form.Group>
     
                             <Form.Group className="mb-3">
-                                <Form.Label>Теги</Form.Label>
+                                <Form.Label id='text'>{t("tags")}</Form.Label>
                                 <Tags 
                                     tags={tags} 
                                     setTags={setTags}
@@ -412,10 +425,12 @@ export const FormReview = ({ review, localId, ...props}) => {
     
                             <Row className="mb-3">
                                 <Form.Group as={Col}>
-                                    <Form.Label>Оценка</Form.Label>
+                                    <Form.Label id='text'>{t("grade")}</Form.Label>
                                     <Form.Select 
                                         required
-                                        defaultValue={'Оценка'}
+                                        id='text'
+                                        className="grade_form"
+                                        defaultValue={t("grade")}
                                         value={authorsAssessment}
                                         onChange={event => setAuthorsAssessment(event.target.value)}
                                     >
@@ -435,10 +450,12 @@ export const FormReview = ({ review, localId, ...props}) => {
                                 </Form.Group>
     
                                 <Form.Group as={Col}>
-                                    <Form.Label>Категория</Form.Label>
+                                    <Form.Label id='text'>{t("category")}</Form.Label>
                                     <Form.Select 
                                         required
-                                        defaultValue={'Котегория'} 
+                                        className="type_form"
+                                        id='text'
+                                        defaultValue={t("category")}
                                         onChange={(e)=> review.setSelectedType(Number(e.target.value))}
                                     >
                                         <option 
@@ -451,8 +468,11 @@ export const FormReview = ({ review, localId, ...props}) => {
                                         </option>
                                         {review?.types?.map(item => 
                                             <option value={item.id}>
-                                                {item.name}
-                                            </option>
+                                                {item?.name === "Кино" ? t("common:cinema" ) :
+                                                item?.name === "Книги" ? t("common:book") :
+                                                item?.name === "Сериалы" ? t("common:series") :
+                                                t(item?.name) || item?.name}
+                                            </option>   
                                             )
                                         }
                                         
@@ -466,7 +486,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                                 onClick={() => handleReview('create')}
                                 disabled={!title || !textReview}
                             >
-                                Создать
+                                {t("create")}
                             </Button>
                             {alert && <Alert status={alert.status} data={alert.data}/>}
                         </Form>

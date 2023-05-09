@@ -13,7 +13,7 @@ import { TbCalendar } from "react-icons/tb";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { TbClipboardList } from "react-icons/tb";
 import { TbPencilPlus } from "react-icons/tb";
-
+import { useTranslation } from "react-i18next";
 
 
 
@@ -24,7 +24,7 @@ export const ReviewTable = observer(({myReviews, setMyReviews, fetchRewiewId}) =
     const [sortDirectionLike, setSortDirectionLike] = useState("desc");
     const [sortDirectionDate, setSortDirectionDate] = useState("desc");
     const [sortDirectionType, setSortDirectionType] = useState("desc");
-
+    const {t} = useTranslation(["home"])
 
     const handleSelectAllChange = () => {
         if (checkAll) {
@@ -121,7 +121,7 @@ export const ReviewTable = observer(({myReviews, setMyReviews, fetchRewiewId}) =
             <Button variant="outline-secondary" onClick={sortType}><TbArrowsDownUp/></Button>{' '}
         </ButtonGroup>
     </ButtonToolbar>
-        <Table striped bordered hover >
+        <Table striped bordered hover id='text' className='review_table'>
             <thead>
                 <tr>
                 <th>
@@ -132,18 +132,18 @@ export const ReviewTable = observer(({myReviews, setMyReviews, fetchRewiewId}) =
                     />
                 </th> 
                 <th>#</th>
-                <th>Название обзора</th>
-                <th>Произведения</th>
-                <th>Дата</th>
-                <th>Лайки</th>
-                <th>Котегория</th>
+                <th>{t("reviewTitle")}</th>
+                <th>{t("product")}</th>
+                <th>{t("date")}</th>
+                <th>{t("likes")}</th>
+                <th>{t("category")}</th>
                 <th></th>
                 <th></th>
                 </tr>
             </thead>
             <tbody>
                 {myReviews?.reviews && myReviews?.reviews.map((item, index) =>
-                    <tr>
+                    <tr  className='review_table_thoby' key={item.id}>
                         <th>
                             <FormCheck 
                                 type="checkbox" 

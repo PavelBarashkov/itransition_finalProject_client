@@ -8,13 +8,14 @@ import { Context } from "..";
 import { useNavigate } from "react-router-dom";
 import { HOME_ROUTE } from "../utils/consts";
 import { Spiner } from "../components/Spinner ";
+import { useTranslation } from "react-i18next";
 
 export const Admin = () => {
     const {user} = useContext(Context)
     const navigate = useNavigate()
     const [modalType, setModalType] = useState(false);
     const [modalTag, setModalTag] = useState(false);
-
+    const {t} = useTranslation(["common", "home", "review"]);
     const [type, setType] = useState('');
     const [tag, setTag] = useState('');
 
@@ -27,22 +28,22 @@ export const Admin = () => {
     }, [])
 
     return (
-        <Container style={{marginTop: '45px'}}>
+        <Container style={{marginTop: '45px', height: "100%"}} className="container_table">
 
             <Button 
                 style={{marginRight: '20px'}}
                 onClick={() => setModalType(true)}
             >
-                Создать котегорию
+                {t("common:createCategory")}
             </Button>
             <MyModal 
                 visible={modalType} 
                 setVisible={setModalType}
             >
-            <Form.Label >Кино,книги и т.д</Form.Label>
+            <Form.Label >{t("common:moviesBooksEtc")}</Form.Label>
                 <InputGroup className="mb-3">
                     <InputGroup.Text>
-                    Название
+                        {t('home:title')}
                     </InputGroup.Text>
                     <Form.Control 
                         value={type}
@@ -53,22 +54,22 @@ export const Admin = () => {
                     disabled={!type}
                     onClick={() => Service.createType(type)}
                 >
-                    Создать
+                    {t("home:create")}
                 </Button>
             </MyModal>
             <Button 
                 onClick={() => setModalTag(true)}
             > 
-                Создать Тег 
+                {t("common:createTag")}
             </Button>
             <MyModal 
                 visible={modalTag} 
                 setVisible={setModalTag}
             >
-                <Form.Label >Новык, Старые и т.д</Form.Label>
+                <Form.Label >{t("common:newOldEtc")}</Form.Label>
                     <InputGroup className="mb-3">
                         <InputGroup.Text>
-                        Название
+                            {t('home:title')}
                         </InputGroup.Text>
                         <Form.Control 
                             value={tag}
@@ -79,19 +80,19 @@ export const Admin = () => {
                         disabled={!tag} 
                         onClick={() => Service.createTag(tag)}
                     >
-                        Создать
+                        {t("home:create")}
                     </Button>
                 </MyModal>
 
 
-                <Table striped bordered hover>
+                <Table striped bordered hover style={{height: '100vh'}}>
                     <thead>
                         <tr>
                         <th>#</th>
-                        <th>Автор</th>
-                        <th>Email</th>
-                        <th>Дата регистрации</th>
-                        <th>Страница</th>
+                        <th>{t("review:author")}</th>
+                        <th>{t("common:email")}</th>
+                        <th>{t("common:dateOfRegistration")}</th>
+                        <th>{t("common:page")}</th>
                         </tr>
                     </thead>
                     
@@ -116,8 +117,6 @@ export const Admin = () => {
                              </tbody>
 
                         }
-                        
-
                 </Table>
         </Container>
     )
