@@ -9,10 +9,12 @@ import { observer } from "mobx-react-lite"
 import { NavDropdownType } from "../components/Header/NavDropdown"
 import { Tags } from "../components/Tags"
 import { Pages } from "../components/Pages"
+import { useTranslation } from "react-i18next";
 
 
 export const Main = observer(() => {
     const {review} = useContext(Context);
+    const {t} = useTranslation(["common"])
     // const pageSize = window.innerWidth < 1000 ? 2 : 3;
     const [fetchReview, isReviewsLoading, reviewsError] = useFetching(async () => {
         
@@ -48,7 +50,7 @@ export const Main = observer(() => {
                             <ReviewList/>
                         ) 
                         : (
-                            <Col style={{textAlign: 'center'}} md={12}>Нет обзоров</Col>
+                            <Col style={{textAlign: 'center'}} md={12}>{t("noReviews")}</Col>
                         )}
                     <Pages/>
                 </Col>

@@ -15,9 +15,11 @@ import { entries } from "mobx";
 import {BasicRating} from "../components/Rating"
 import ReactMarkdown from 'react-markdown';
 import { FaRegHeart } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 
 export const Review = observer(() => {
+    const {t} = useTranslation(["review", "home"])
     const {id} = useParams();
     const token = localStorage.getItem('token');
     let localId;
@@ -72,7 +74,7 @@ export const Review = observer(() => {
         
             <Row className="mt-3 mb-5">
                 <Col md={4}>
-                    <Card  key={review.id} >
+                    <Card  key={review.id} className="card_item_review">
                     <Card.Img  
                         variant="top" 
                         src={(review?.images && review.images[0]?.pathToCloudStorage) ?? 'https://res.cloudinary.com/duy8ow4xu/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1682329996/wfk8yzc7xrlvadr3trwn.jpg?_s=public-apps'} 
@@ -93,12 +95,21 @@ export const Review = observer(() => {
                     </Card.Title>
 
                     <ListGroup.Item>
-                       <span style={{fontWeight: 'bold'}}
-                    >
-                        Категория: </span> {review?.types && review?.types[0]?.name}
+                       <span style={{fontWeight: 'bold'}}>
+                            {t("home:category")} : 
+                        </span>  {
+                            review?.types && review?.types[0] ?
+                            review?.types[0]?.name === "Кино" ? t("common:cinema" ) :
+                            review?.types[0]?.name === "Книги" ? t("common:book") :
+                            review?.types[0]?.name === "Сериалы" ? t("common:series") :
+                            t(review?.types[0]?.name) || review?.types[0]?.name : t("home:category")
+                        } 
+                        
+                                
+                            
                     </ListGroup.Item>
                     <ListGroup.Item className="card_aftor card_aftor--review">
-                                <span style={{fontWeight: 'bold'}}>Автор: {users?.name} </span> 
+                                <span style={{fontWeight: 'bold'}}>{t("review:author")}: {users?.name} </span> 
                                 <div className="card_aftor_icon">
                                     <FaThumbsUp
                                         className="btn_like"
@@ -108,14 +119,27 @@ export const Review = observer(() => {
                                 </div>
                             </ListGroup.Item>
                     <ListGroup.Item>
-                        <span style={{fontWeight: 'bold'}}> Оцентка от автора:</span> {review?.rating}
+                        <span style={{fontWeight: 'bold'}}> {t("review:authorRating")}:</span> {review?.rating}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <span style={{fontWeight: 'bold'}}> Теги: </span>{review?.tags && review.tags.map(tag => <div className="tag_item">{tag.name}</div>)}
+                        <span 
+                            style={{fontWeight: 'bold'}}
+                        > 
+                            {t("home:tags")}: 
+                        </span> 
+                        {review?.tags && review.tags.map(tag => 
+                            <div className="tag_item">
+                                 {tag.name === "Новые" ? t("common:new") : 
+                                        tag.name === "Старые" ? t("common:old") :
+                                        tag.name === "Крутые" ? t("common:nice") :
+                                        tag.name === "Любимые" ? t("common:favorite") :
+                                        t(tag.name) || tag.name}
+                            </div>)
+                        }
                     </ListGroup.Item>
 
                     <ListGroup.Item>
-                        <span style={{fontWeight: 'bold'}}> Дата публекации: </span>{review?.createReview && review?.createReview.split(',')[0]}
+                        <span style={{fontWeight: 'bold'}}>{t("review:publicationDate")}: </span>{review?.createReview && review?.createReview.split(',')[0]}
                     </ListGroup.Item>
 
                     <Card.Text className="text_review">
@@ -124,6 +148,7 @@ export const Review = observer(() => {
                         
                     </Card.Text>
                     <Button 
+                        disabled={!localId?.id}
                         onClick={() => {
                             Service.like(review.id, localId.id)
                                 .then(data => {
@@ -142,9 +167,10 @@ export const Review = observer(() => {
                 </Col>
                 
             </Row>
-            <Comment review={review} userId={users?.name}/>
-            <FloatingLabel controlId="floatingTextarea2" label="Comments">
+            <Comment review={review} userId={localId}/>
+            <FloatingLabel id="text" label={t("comment")}>
                 <Form.Control
+                    className="form_comment"
                     as="textarea"
                     placeholder="Leave a comment here"
                     style={{ height: '100px' }}
@@ -156,11 +182,12 @@ export const Review = observer(() => {
  
                 />
                 <Button 
+                    disabled={!localId?.id}
                     style={{marginTop: '20px'}}
                     variant="outline-success"
                     onClick={() => sendComment()}
                 >
-                    Отправить
+                    {t("review:send")}
                 </Button>
             </FloatingLabel>
         </Container>

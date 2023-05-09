@@ -12,7 +12,12 @@ import { Spiner } from "./Spinner ";
 import { FaThumbsUp } from "react-icons/fa";
 import { useMediaQuery } from '@material-ui/core';
 import { FaRegHeart } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+
+
+
 export const ReviewItem = observer(({review, userId}) => {
+    const {t} = useTranslation(["review", "home", "common"])
     const token = localStorage.getItem('token');
     let localId;
     if (token) {
@@ -39,7 +44,8 @@ export const ReviewItem = observer(({review, userId}) => {
             {isUserLoading
                 ? <Spiner/>
                 :
-                    <Card  
+                    <Card 
+                        className="card_item_review"
                         key={review.id}
                     >
                     <Card.Img  
@@ -51,9 +57,9 @@ export const ReviewItem = observer(({review, userId}) => {
                             {review?.title} 
                         </Card.Title>
                         </Card.Body>
-                            <ListGroup className="list-group-flush">
-                            <ListGroup.Item className="card_aftor">
-                                <span style={{fontWeight: 'bold'}}>Автор: {users?.name} </span> 
+                            <ListGroup className="list-group-flush ">
+                            <ListGroup.Item className="card_aftor card_item_review">
+                                <span style={{fontWeight: 'bold'}}>{t("review:author")}: {users?.name} </span> 
                                 <div className="card_aftor_icon">
                                     <FaThumbsUp
                                         className="btn_like"
@@ -62,20 +68,35 @@ export const ReviewItem = observer(({review, userId}) => {
                                     {users?.likeCount ? users?.likeCount : 0}
                                 </div>
                             </ListGroup.Item>
-                            <ListGroup.Item>
-                            <span style={{fontWeight: 'bold'}}>{review?.types[0]?.name}: </span>{review?.products[0]?.name}
+                            <ListGroup.Item className="card_item_review"> 
+                            <span style={{fontWeight: 'bold'}}>
+                                {review?.types[0]?.name === "Кино" ? t("common:cinema" ) :
+                                   review?.types[0]?.name === "Книги" ? t("common:book") :
+                                   review?.types[0]?.name === "Сериалы" ? t("common:series") :
+                                   t(review?.types[0]?.name) || review?.types[0]?.name}
+                                
+                                : </span>{review?.products[0]?.name}
                                 <BasicRating 
+                                    localId={localId}
                                     value={review?.products[0]?.averageRating} 
                                     userId={localId?.id} 
                                     productId={review?.products[0]?.id}
                                 />
                             </ListGroup.Item>
-                            <ListGroup.Item>
-                                <span style={{fontWeight: 'bold'}}>Дата публекации:</span> {review?.createReview.split(',')[0]}
+                            <ListGroup.Item className="card_item_review">
+                                <span style={{fontWeight: 'bold'}}>{t("review:publicationDate")}:</span> {review?.createReview.split(',')[0]}
                             </ListGroup.Item>
 
-                            <ListGroup.Item className="align-items-center">
-                                <span style={{fontWeight: 'bold'}}>Теги:</span> {review?.tags.map(tag => <div className="tag_item">{tag.name}</div>)}
+                            <ListGroup.Item className="align-items-center card_item_review">
+                                <span style={{fontWeight: 'bold'}}>{t("home:tags")}:</span> 
+                                {review?.tags.map(tag => 
+                                    <div className="tag_item">
+                                        {tag.name === "Новые" ? t("common:new") : 
+                                        tag.name === "Старые" ? t("common:old") :
+                                        tag.name === "Крутые" ? t("common:nice") :
+                                        tag.name === "Любимые" ? t("common:favorite") :
+                                        t(tag.name) || tag.name}
+                                    </div>)}
                             </ListGroup.Item>
 
                             </ListGroup>
@@ -85,9 +106,10 @@ export const ReviewItem = observer(({review, userId}) => {
                         className="w-50"
                             onClick={() => navigate(REVIEW_ROUTE + '/' + review.id)}
                         >
-                            Обзор
+                           {t("home:review")}
                         </Button>
                         <Button 
+                        disabled={!localId?.id}
                         onClick={() => {
                             Service.like(review.id, localId.id)
                                 .then(data => {

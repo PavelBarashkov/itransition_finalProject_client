@@ -7,12 +7,14 @@ import Col from 'react-bootstrap/Col';
 import { login, registration } from '../../API/http/userAPI';
 import {FacebookAuth} from "./LoginFacebook"
 import { observer } from 'mobx-react-lite';
+import { useTranslation } from "react-i18next";
 
 export const Login = observer(() => {
     const {user} = useContext(Context);    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
+    const {t} = useTranslation(["common", "home", "review"])
 
     const [isLogin, setIsLogin] = useState(true);
 
@@ -73,7 +75,7 @@ export const Login = observer(() => {
                         <Form noValidate validated={validatedLogin} onSubmit={handleSubmit} className='form_Auth'>
                             <Form.Group as={Col} md="15">
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text style={{width: '80px'}}>Логин</InputGroup.Text>
+                                    <InputGroup.Text style={{width: '80px'}}>{t("common:login")}</InputGroup.Text>
                                     <Form.Control
                                         value={email}
                                         onChange={e => setEmail(e.target.value)}
@@ -88,7 +90,7 @@ export const Login = observer(() => {
                             
                             <Form.Group as={Col} md="15" >
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text style={{width: '80px'}}>Пароль</InputGroup.Text>
+                                    <InputGroup.Text style={{width: '80px'}}>{t("common:password")}</InputGroup.Text>
                                     <Form.Control
                                         value={password}
                                         onChange={e => setPassword(e.target.value)}
@@ -105,7 +107,7 @@ export const Login = observer(() => {
                                 type="submit" 
                                 onClick={click} 
                             >
-                                Вход
+                                {t("common:signIn")}
                             </Button>
 
                         </Form>
@@ -114,13 +116,13 @@ export const Login = observer(() => {
                             <FacebookAuth  />
                         </div>
                         
-                        <div style={{display: 'flex', justifyContent: 'center'}}>Или</div>
+                        <div style={{display: 'flex', justifyContent: 'center'}}>{t("common:or")}</div>
                         <Button 
                             className='btn_auth btn_auth--reg'
                             variant="success"
                             onClick={() => swithRegistration()}
                         >
-                            Создать акаунт
+                            {t("common:createAccount")}
                         </Button>
                     </Container>
                 :
@@ -128,7 +130,7 @@ export const Login = observer(() => {
                     <Form noValidate validated={validatedRegistration} onSubmit={handleSubmit} className='form_Auth'>
                         <Form.Group as={Col} md="15" >
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text  style={{width: '80px'}}>Имя</InputGroup.Text>
+                                    <InputGroup.Text  style={{width: '80px'}}>{t("common:name")}</InputGroup.Text>
                                     <Form.Control
                                         value={name}
                                         onChange={e => setName(e.target.value)}
@@ -156,7 +158,7 @@ export const Login = observer(() => {
                             </Form.Group>
                             <Form.Group as={Col} md="15">
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text  style={{width: '80px'}}>Пароль</InputGroup.Text>
+                                    <InputGroup.Text  style={{width: '80px'}}>{t("common:password")}</InputGroup.Text>
                                     <Form.Control
                                         value={password}
                                         onChange={e => setPassword(e.target.value)}
@@ -173,13 +175,13 @@ export const Login = observer(() => {
                             type="submit" 
                             onClick={click}
                         >
-                            Зарегистрироваться
+                            {t("common:register")}
                         </Button>
                         <Button 
                             variant="outline-warning"
                             onClick={() => setIsLogin(true)}
                         >
-                            Назад
+                            {t("common:back")}
                         </Button>
 
                     </Form>

@@ -17,16 +17,16 @@ export const Pages = observer(() => {
 
     return(
         <Pagination className="mt-5">
-            {pages.map(page => 
-                <Pagination.Item
-                    className={review.page === page ? "active_page" : ""}
-                    key={page}
-                    active={review.page === page}
-                    onClick={() => review.setPage(page)}
-                >
-                    {page}
-                </Pagination.Item>    
-            )}
-        </Pagination>
+  {pages.map((page) => (
+    <Pagination.Item
+      key={page}
+      active={review.page === page}
+      onClick={() => review.setPage(page)}
+      className={review.page === page ? "active" : ""}
+    >
+      {page}
+    </Pagination.Item>
+  ))}
+</Pagination>
     )
 })

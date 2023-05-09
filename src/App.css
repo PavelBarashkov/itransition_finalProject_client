@@ -1,41 +1,7 @@
-/* .App {
-  text-align: center;
-}
+.app_container {
+    background-color: var(--backgraound-color);
+ }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
 
 
 .my-facebook-button-class {
@@ -50,19 +16,21 @@
   font-size: 12px;
 }
 
-.title_review { 
-  box-Shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
-  padding: 10px 25px;
-  margin: 0 auto;
-  width: max-content;
-}
+
 
 .Nav_Tags {
-  margin-bottom: 50px;
+  background-color: var(--backgraound-color-card-review);
+  color: var(--text-color-card-review) !important;
 }
 
 
 /*Card item*/
+
+.card_item_review {
+    background-color:var(--backgraound-color-card-review) ;
+    color: var(--text-color-card-review);
+    box-Shadow: var(--box-Shadow-title-review);
+ }
 .card_aftor {
     display: flex;
     justify-content: space-between;
@@ -88,11 +56,24 @@
     margin-left: 5px;
     border-radius: 10px;
 
-    background-color: #FFB6C1;
+    background-color: var(--backgraound-color-tags) !important;
+    color: var(--text-color-tags);
     font-size: 11px;
+}
+.tag_form {
+    background-color: var(--backgraound-color-tags--form) !important;
+
 }
 
 /*page review*/
+
+.title_review { 
+    box-Shadow: var(--box-Shadow-title-review);
+    padding: 10px 25px;
+    margin: 0 auto;
+    width: max-content;
+    color: var(--text-color-card-review);
+  }
 
 .card_aftor--review{
     display: flex;
@@ -102,14 +83,15 @@
 }
 
 .review_info {
-    background-color: rgb(245, 245, 245);
+    background-color: var(--backgraound-color-card-review);
+    color: var(--text-color-card-review);
     border-radius: 10px;
     padding: 15px
 }
 
 .text_review {
     margin-top: 25px;
-    background-color: white;
+    background-color: var(--backgraound-color-review);
     padding: 20px;
     border-radius: 20px;
 }
@@ -119,10 +101,58 @@
     column-gap: 10px;
 }
 .container_table {
-    overflow-x: scroll
+    overflow-x: scroll;
 }
 
+.form_comment {
+    background-color: var(--backgraound-color-card-review);
+    color: var(--text-color-card-review);
+    border: 1px solid grey;
+}
+
+.form_comment:focus {
+    background-color: var(--backgraound-color-card-review);
+    color: var(--text-color-card-review);
+    border: 1px solid grey;
+}
+
+#text {
+    color: var(--text-color-card-review);
+}
+
+.comment_body {
+    background-color: var(--backgraound-color-comment-body);
+    color: var(--text-color-comment);
+}
+
+.comment_header {
+    background-color: var(--backgraound-color-comment-header);
+    color: var(--text-color-comment);
+}
+
+.blockquote-footer {
+    color: var(--text-color-comment);
+}
+
+
+
 /*review-form */
+
+.form_img {
+    background-color: var(--backgraound-color-card-review);
+    color: var(--text-color-card-review);
+    border-radius: 10px;
+}
+.form_title {
+    background-color: var(--backgraound-color-card-review);
+    color: var(--text-color-card-review);
+    border-color:  var(--border-color);
+}
+.form_title:focus {
+    background-color: var(--backgraound-color-card-review);
+    color: var(--text-color-card-review);
+    border-color:  var(--border-color);
+}
 
 .product_form {
     width: 10px;
@@ -131,6 +161,59 @@
 .alert {
     position: fixed;
     top: 10%;
+}
+
+.list_autcompl {
+    background-color: var(--backgraound-color-card-review);
+}
+
+.review_form_text {
+    background-color: var(--backgraound-color-card-review);
+    border-color: var(--border-color);
+}
+
+.review_form_text:focus {
+    background-color: var(--backgraound-color-card-review);
+    border-color: var(--border-color);
+}
+
+.grade_form {
+    background-color: var(--backgraound-color-card-review);
+    color: var(--text-color-tags);
+    border-color: var(--border-color);
+}
+
+.type_form {
+    background-color: var(--backgraound-color-card-review);
+    border-color: var(--border-color);
+}
+
+
+/*review table*/
+.review_table {
+    color: var() !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>*{
+    color: var(--text-color-card-review);
+
+}
+
+.table {
+    --bs-table-color: var(--text-color-card-review);
+    --bs-table-bg: transparent;
+    --bs-table-border-color: var(--bs-border-color);
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: var(--bs-body-color);
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+    --bs-table-active-color: var(--bs-body-color);
+    --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+    --bs-table-hover-color: var(--text-color-card-review);
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+}
+.table:hover{
+    color: var(--text-color-card-review) !important;
+
 }
 
 /*modal Auth*/
@@ -157,3 +240,17 @@
     margin-top: 10px;
 }
 
+
+/*pagination*/
+.active .page-link {
+    background-color: var(--backgraound-color-tags);
+    border-color: var(--backgraound-color-tags);
+    color: var(--text-color-tags);
+}
+
+.page-link {
+    color: var(--text-color-tags);
+}
+.page-link:hover {
+    color: var(--text-color-tags);
+}
