@@ -18,10 +18,11 @@ export const Main = observer(() => {
     // const pageSize = window.innerWidth < 1000 ? 2 : 3;
     const [fetchReview, isReviewsLoading, reviewsError] = useFetching(async () => {
         
-        await Service.getReviews(review.selectedType.id, review.selectedTag.map(item => item.id), review.page, 3).then(data => {
+        await Service.getReviews(review.selectedType ? review.selectedType.id : null, review.selectedTag.map(item => item.id), review.page, 3).then(data => {
             review.setReviews(data.rows)
             review.setTotalCount(data.count);
         });
+        
     })
     
     
@@ -47,7 +48,7 @@ export const Main = observer(() => {
                 <Col md={9} >
                     {review.reviews && review.reviews.length > 0 
                         ? (
-                            <ReviewList/>
+                            <ReviewList fetchReview={fetchReview}/>
                         ) 
                         : (
                             <Col style={{textAlign: 'center'}} md={12}>{t("noReviews")}</Col>

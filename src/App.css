@@ -1,5 +1,6 @@
 .app_container {
     background-color: var(--backgraound-color);
+    min-height: 100vh !important;
  }
 
 
@@ -23,6 +24,9 @@
   color: var(--text-color-card-review) !important;
 }
 
+.my-facebook-button-class.metro {
+    background: none;
+}
 
 /*Card item*/
 
@@ -114,6 +118,9 @@
     background-color: var(--backgraound-color-card-review);
     color: var(--text-color-card-review);
     border: 1px solid grey;
+}
+.form-control:disabled {
+    background-color: var(--backgraound-color-card-review);
 }
 
 #text {

@@ -9,8 +9,9 @@ import { Spiner } from "./Spinner ";
 import { Alert } from "./Alert";
 
 import { useTranslation } from "react-i18next";
+import { observer } from "mobx-react-lite";
 
-export const FormReview = ({ review, localId, ...props}) => {
+export const FormReview = observer(({ review, localId, ...props}) => {
     const {t} = useTranslation(["home"])
     // State
     const [title, setTitle] = useState('');
@@ -28,7 +29,7 @@ export const FormReview = ({ review, localId, ...props}) => {
     const [editPicture, setEditPicture] = useState(null)
     const [editImg, setEditImg] = useState(null)
     const [alert, setAlert] = useState(null);
-
+    const [test, setTest] = useState(null)
     // Constants
     const number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -100,23 +101,26 @@ export const FormReview = ({ review, localId, ...props}) => {
     }
 
     const handleSubmit = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         const form = event.currentTarget;
+        if (alert) {
+            return;
+        }
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
             setValidated(true);
-
         } else {
-            event.preventDefault();
-            setValidated(false);
             setTitle('');
             setTextReview('');
             setTags(null);
             setAuthorsAssessment(0);
             review.setSelectedType(null);
             review.setSelectedTag(null);
+            setTest('')
         }
-    };
+};
 
     // Fetching
     const [fetchProduct, isProductLoading, productError] = useFetching(async () => {
@@ -128,9 +132,17 @@ export const FormReview = ({ review, localId, ...props}) => {
     const handleReview = (action) => {
         if (!review.selectedType) {
             setAlert({ data: 'Выберите категорию', status: 404 });
+            console.log(alert)
             return;
-          }
+        }
+        if (!review.selectedProduct) {
+            setAlert({ data: 'Выберите Произведение', status: 404 });
+            return;
+        }
         if (action === 'create') {
+            if(!review.selectedType || !review.selectedProduct) {
+                return
+            }
           Service.createReview(
             imgUrl?.data?.id,
             review.selectedType,
@@ -144,6 +156,7 @@ export const FormReview = ({ review, localId, ...props}) => {
           .then(response => {
             setAlert({ data: `Обзор: ${response.data.title} успешно создан`});
             props.fetchReviews()
+
           })
           .catch(error => {
             if (error.response && error.response.status === 404) {
@@ -159,7 +172,7 @@ export const FormReview = ({ review, localId, ...props}) => {
             authorsAssessment,
             review.selectedTag && review.selectedTag.map(tag => tag.name),
             review.selectedType,
-            imgUrl? imgUrl?.data?.id : editImg,
+            imgUrl? imgUrl?.data?.id : editImg || null,
           )
           .then(response => {
             console.log(response)
@@ -260,6 +273,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                                 <FloatingLabel id="text" label={t("review")}>
                                     <Form.Control
                                         required
+                                        id='text'
                                         className="review_form_text"
                                         as="textarea"
                                         placeholder="Leave a comment here"
@@ -314,7 +328,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                                             {category}
                                         </option>
                                         {review?.types?.map(item => 
-                                            <option value={item.name} key={item.userId}>
+                                            <option value={item.name} key={item.id}>
                                                  {item?.name === "Кино" ? t("common:cinema" ) :
                                                 item?.name === "Книги" ? t("common:book") :
                                                 item?.name === "Сериалы" ? t("common:series") :
@@ -404,6 +418,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                             <Form.Group className="mb-3">
                                 <FloatingLabel id='text' label={t("review")}>
                                     <Form.Control
+                                        id='text'
                                         className="review_form_text"
                                         required
                                         as="textarea"
@@ -442,7 +457,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                                             {authorsAssessment}
                                         </option>
                                         {number.map(item => 
-                                            <option>{item}</option>
+                                            <option key={item}>{item}</option>
                                             )
                                         }
                                         
@@ -456,6 +471,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                                         className="type_form"
                                         id='text'
                                         defaultValue={t("category")}
+                                        value={test}
                                         onChange={(e)=> review.setSelectedType(Number(e.target.value))}
                                     >
                                         <option 
@@ -467,7 +483,7 @@ export const FormReview = ({ review, localId, ...props}) => {
                                             {''}
                                         </option>
                                         {review?.types?.map(item => 
-                                            <option value={item.id}>
+                                            <option value={item.id} key={item.id}>
                                                 {item?.name === "Кино" ? t("common:cinema" ) :
                                                 item?.name === "Книги" ? t("common:book") :
                                                 item?.name === "Сериалы" ? t("common:series") :
@@ -509,4 +525,4 @@ export const FormReview = ({ review, localId, ...props}) => {
            
         </Container>
     )
-}
+})

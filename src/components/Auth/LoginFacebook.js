@@ -20,11 +20,12 @@ export const FacebookAuth = () => {
 
   return (
     <FacebookLogin
+        className='icon_faceBook'
       appId={process.env.REACT_APP_CLIENT_ID_FACEBOOK}
       autoLoad={false}
       fields="name,email"
       callback={responseFacebook}
-      icon={<AiFillFacebook size={'2em'}/>}
+      icon={<AiFillFacebook id='text'  size={'2em'}/>}
       textButton=''
       cssClass="my-facebook-button-class"
     />

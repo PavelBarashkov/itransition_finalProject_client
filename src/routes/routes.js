@@ -2,7 +2,8 @@ import { Review } from "../pages/Review";
 import { Admin } from "../pages/Admin";
 import { Home } from "../pages/Home";
 import { Main } from "../pages/Main";
-import { ADMIN_ROUTE, HOME_ROUTE, MAIN_ROUTE, REVIEW_ROUTE } from "../utils/consts";
+import { Search } from "../pages/Search";
+import { ADMIN_ROUTE, HOME_ROUTE, MAIN_ROUTE, REVIEW_ROUTE, SEARCH_ROUTE } from "../utils/consts";
 
 
 export const authRotes = [
@@ -28,6 +29,10 @@ export const publicRoutes = [
     {
         path: REVIEW_ROUTE + '/:id',
         element: <Review/>
+    },
+    {
+        path: SEARCH_ROUTE,
+        element: <Search/>
     },
     {
         path: '/*',

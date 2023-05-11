@@ -3,18 +3,20 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Context } from "..";
 import { makeStyles } from '@mui/styles';
+import { observer } from "mobx-react-lite";
 
 
 
 
-export const Product = ({data}) => {
+export const Product = observer(({data}) => {
     const {review} = useContext(Context);
     const [selectedProduct, setSelectedProduct] = useState(review.selectedProduct);
 
     useEffect(() => {
         setSelectedProduct({name: review.selectedProduct});
-        console.log(selectedProduct)
-    }, [review.selectedProduct]);
+    }, [review.selectedProduct,]);
+
+    
 
     const handleProductSelect = (event, value) => {
         if(value) {
@@ -35,6 +37,9 @@ export const Product = ({data}) => {
         
     });
     const classes = useStyles();
+    const test = [{
+        name: ''
+    }]
 
     return (
         <Autocomplete
@@ -67,7 +72,7 @@ export const Product = ({data}) => {
             />
           }
           onChange={handleProductSelect}
-          value={selectedProduct}
+          value={selectedProduct === null ? test.name : selectedProduct}
         />
       );
-}
+})

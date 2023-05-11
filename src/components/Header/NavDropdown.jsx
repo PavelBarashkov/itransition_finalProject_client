@@ -18,13 +18,13 @@ export const NavDropdownType = observer(() => {
 
     return (
         <select
-          className="nav-link bg-dark border-0 ml-1 mr-2"
-          onChange={(event) => {
-            setType(event.target.value);
-            const selectedType = review.types.find((type) => type.name === event.target.value);
-            review.setSelectedType(selectedType || 0);
-          }}
-          value={type}
+            className="nav-link bg-dark border-0 ml-1 mr-2"
+            onChange={(event) => {
+                setType(event.target.value);
+                const selectedType = review.types.find((type) => type.name === event.target.value);
+                review.setSelectedType(selectedType || 0);
+            }}
+            value={type}
         >
             <option value={t("category")}>{t("category")}</option>
             {review.types.map((item) => (
