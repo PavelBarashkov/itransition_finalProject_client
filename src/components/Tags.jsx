@@ -19,22 +19,30 @@
     })
     const handleChange = (event, value) => {
         review.setSelectedTag(value);
-        console.log(review.selectedTag)
-
         if (review.selectedTag) {
-        setTags(value);
+            setTags(value);
         }
     };
-
+    const getTagLabel = (tag) => {
+        switch (tag) {
+          case "Новые":
+            return t("common:new");
+          case "Старые":
+            return t("common:old");
+          case "Крутые":
+            return t("common:nice");
+          case "Любимые":
+            return t("common:favorite");
+          default:
+            return t(tag);
+        }
+      };
 
     const handleInputChange = (event, value) => {
         review.setSelectedTag(value.split(' ').map(tag => ({name: tag})));
-        
-        console.log(review.selectedTag)
+
       };
-      
-
-
+ 
     const useStyles = makeStyles({
         autocomplete: {
         },
@@ -52,10 +60,11 @@
         fetchTag();
         }, []);
 
+      
+
         return(
         <Autocomplete
         freeSolo
-
         ListboxProps={{ className: "list_autcompl" }}
         style={{marginBottom: '40px'}}
         className='Nav_Tags'
@@ -66,12 +75,7 @@
         multiple
         id="tags-outlined"
         options={review.tags}
-        getOptionLabel={(option) => 
-            option.name === "Новые" ? t("common:new") : 
-            option.name === "Старые" ? t("common:old") :
-            option.name === "Крутые" ? t("common:nice") :
-            option.name === "Любимые" ? t("common:favorite") :
-            t(option.name) || option.name
+        getOptionLabel={(option) => getTagLabel(option.name)
         }
         filterSelectedOptions
         onChange={handleChange}
@@ -100,13 +104,15 @@
         )}
         renderTags={(value, getTagProps) =>
             value.map((option, index) => (
+                
                 <Chip
-                    label={option.name}
+                label={getTagLabel(option.name)}
                     {...getTagProps({ index })}
                     className='tag_form'
                     classes={{
                         root: classes.chip
                     }}
+                    
                 />
             ))
         }

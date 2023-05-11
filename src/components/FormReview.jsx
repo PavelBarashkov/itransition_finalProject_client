@@ -470,7 +470,7 @@ export const FormReview = observer(({ review, localId, ...props}) => {
                                         required
                                         className="type_form"
                                         id='text'
-                                        defaultValue={t("category")}
+                                        defaultValue={category}
                                         value={test}
                                         onChange={(e)=> review.setSelectedType(Number(e.target.value))}
                                     >

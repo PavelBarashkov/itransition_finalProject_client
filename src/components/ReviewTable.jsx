@@ -156,7 +156,10 @@ export const ReviewTable = observer(({myReviews, setMyReviews, fetchRewiewId}) =
                         <td>{item?.products[0]?.name}</td>
                         <td>{item?.createReview}</td>   
                         <td>{item?.likeCount}</td>
-                        <td>{item.types ? item?.types[0]?.name : 'Пусто'}</td>
+                        <td>{item?.types[0]?.name === "Кино" ? t("common:cinema" ) :
+                            item?.types[0]?.name  === "Книги" ? t("common:book") :
+                            item?.types[0]?.name  === "Сериалы" ? t("common:series") :
+                            t(item?.types[0]?.name ) || item?.types[0]?.name }</td>
                         <td>
                             <Button 
                                 variant="outline-secondary"

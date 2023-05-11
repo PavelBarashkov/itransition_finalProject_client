@@ -28,11 +28,9 @@ export const Product = observer(({data}) => {
         autocomplete: {
         },
         input: {
-            height: '4px !important',
         },
         label: {
-            marginTop: '-5px !important',
-            fontSize: '14px !important',
+           
 
         },
         
@@ -65,8 +63,6 @@ export const Product = observer(({data}) => {
               InputLabelProps={{
                 classes: {
                     ...params.InputProps.classes,
-                    root: classes.label,
-                    shrink: classes.labelShrink,
                     className:"Nav_Tags"
                 },
               }}
