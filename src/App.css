@@ -264,3 +264,10 @@
 .page-link:hover {
     color: var(--text-color-tags);
 }
+
+
+
+.css-1h51icj-MuiAutocomplete-root .MuiOutlinedInput-root {
+    padding: 0 !important;
+    height: 37px !important;
+}
