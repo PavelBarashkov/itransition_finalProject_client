@@ -85,7 +85,7 @@ export const Admin = () => {
                 </MyModal>
 
 
-                <Table striped bordered hover style={{height: '100vh'}}>
+                <Table striped bordered hover >
                     <thead>
                         <tr>
                         <th>#</th>

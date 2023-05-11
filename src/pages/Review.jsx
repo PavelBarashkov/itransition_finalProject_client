@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { observer } from "mobx-react-lite";
 import {useParams} from "react-router-dom";
 import { useFetching } from "../hooks/useFetching";
@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 
 
 export const Review = observer(() => {
+    const wsConnection = new WebSocket('ws://localhost:5000');
     const {t} = useTranslation(["review", "home"])
     const {id} = useParams();
     const token = localStorage.getItem('token');
@@ -35,7 +36,7 @@ export const Review = observer(() => {
     const [review, setReview] = useState({});
     
     const [fetchRewiewId, isRewiewIdLoading, rewiewIdError] = useFetching(async ()=> {
-         await Service.getRewiewId(id).then(response => {
+        await Service.getRewiewId(id).then(response => {
             setReview(response)
             setLikes(response.likeCount)
         });
@@ -48,24 +49,57 @@ export const Review = observer(() => {
             
     });
 
+   
 
     const sendComment =  async() => {
-       await Service.sendComment(localId.id, Number(id), commentValue);
-       setCommentValue('');
-       fetchRewiewId();
+        await Service.sendComment(localId.id, localId.name, Number(id), commentValue);
+        setCommentValue('');
+        fetchRewiewId();
+        wsConnection.send(JSON.stringify({
+            event: 'message',
+            id: id,
+            body: commentValue
+        }));
+        
     }
 
 
     useEffect(() => {
         fetchRewiewId();
     }, []);
-    useEffect(() => {
-            fetchUser();
-        
 
+    useEffect(() => {
+        fetchUser()
     }, [review]);
-    
-    
+
+    useEffect(() => {
+        wsConnection.onopen = () => {
+            const message = {
+                event: 'connection',
+            }
+            if (wsConnection.readyState === WebSocket.OPEN) {
+                wsConnection.send(JSON.stringify(message))
+            }
+            console.log("Соединение установлено.");
+        }
+
+        
+        wsConnection.onmessage = (e) => {
+            const message = JSON.parse(e.data);
+            if(message?.event === 'message') {
+                fetchRewiewId();
+            }
+        }
+
+        wsConnection.onclose = () => {
+            console.log('Socket закрыт')
+        }
+
+        wsConnection.onerror = () => {
+            console.log('Socket ошибка')
+            
+        }
+    })
     return (
         <Container style={{marginTop: '45px'}}>
             <h1 className="title_review">
@@ -95,7 +129,7 @@ export const Review = observer(() => {
                     </Card.Title>
 
                     <ListGroup.Item>
-                       <span style={{fontWeight: 'bold'}}>
+                    <span style={{fontWeight: 'bold'}}>
                             {t("home:category")} : 
                         </span>  {
                             review?.types && review?.types[0] ?
@@ -129,7 +163,7 @@ export const Review = observer(() => {
                         </span> 
                         {review?.tags && review.tags.map(tag => 
                             <div className="tag_item">
-                                 {tag.name === "Новые" ? t("common:new") : 
+                                {tag.name === "Новые" ? t("common:new") : 
                                         tag.name === "Старые" ? t("common:old") :
                                         tag.name === "Крутые" ? t("common:nice") :
                                         tag.name === "Любимые" ? t("common:favorite") :
@@ -143,7 +177,7 @@ export const Review = observer(() => {
                     </ListGroup.Item>
 
                     <Card.Text className="text_review">
-                       
+                    
                         <ReactMarkdown children={review?.body}/>
                         
                     </Card.Text>
@@ -170,6 +204,7 @@ export const Review = observer(() => {
             <Comment review={review} userId={localId}/>
             <FloatingLabel id="text" label={t("comment")}>
                 <Form.Control
+                    disabled={!localId?.id}
                     className="form_comment"
                     as="textarea"
                     placeholder="Leave a comment here"
@@ -179,10 +214,10 @@ export const Review = observer(() => {
                     onKeyDown={(event) => {if(event.keyCode === 13) {
                         sendComment()
                     }}}
- 
+
                 />
                 <Button 
-                    disabled={!localId?.id}
+                    disabled={!localId?.id  || !commentValue}
                     style={{marginTop: '20px'}}
                     variant="outline-success"
                     onClick={() => sendComment()}

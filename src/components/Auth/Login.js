@@ -75,12 +75,12 @@ export const Login = observer(() => {
                         <Form noValidate validated={validatedLogin} onSubmit={handleSubmit} className='form_Auth'>
                             <Form.Group as={Col} md="15">
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text style={{width: '80px'}}>{t("common:login")}</InputGroup.Text>
+                                    <InputGroup.Text style={{width: '100px'}}>{t("common:login")}</InputGroup.Text>
                                     <Form.Control
                                         value={email}
                                         onChange={e => setEmail(e.target.value)}
-                                        type="text"
-                                        placeholder="Alex"
+                                        type = "text"
+                                        placeholder = "Alex@gmail.com"
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
@@ -90,7 +90,7 @@ export const Login = observer(() => {
                             
                             <Form.Group as={Col} md="15" >
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text style={{width: '80px'}}>{t("common:password")}</InputGroup.Text>
+                                    <InputGroup.Text style={{width: '100px'}}>{t("common:password")}</InputGroup.Text>
                                     <Form.Control
                                         value={password}
                                         onChange={e => setPassword(e.target.value)}
@@ -116,7 +116,7 @@ export const Login = observer(() => {
                             <FacebookAuth  />
                         </div>
                         
-                        <div style={{display: 'flex', justifyContent: 'center'}}>{t("common:or")}</div>
+                        <div id='text' style={{display: 'flex', justifyContent: 'center'}}>{t("common:or")}</div>
                         <Button 
                             className='btn_auth btn_auth--reg'
                             variant="success"

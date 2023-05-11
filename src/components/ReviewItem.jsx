@@ -16,8 +16,7 @@ import { useTranslation } from "react-i18next";
 
 
 
-export const ReviewItem = observer(({review, userId}) => {
-    const {t} = useTranslation(["review", "home", "common"])
+export const ReviewItem = observer(({review, userId, fetchReview}) => {
     const token = localStorage.getItem('token');
     let localId;
     if (token) {
@@ -27,6 +26,7 @@ export const ReviewItem = observer(({review, userId}) => {
         console.log('Invalid token specified');
         }
     }
+    const {t} = useTranslation(["review", "home", "common"])
     const isSmallScreen = useMediaQuery('(max-width:980px)');
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
@@ -49,7 +49,9 @@ export const ReviewItem = observer(({review, userId}) => {
                         key={review.id}
                     >
                     <Card.Img  
-                        variant="top" 
+                        onClick={() => navigate(REVIEW_ROUTE + '/' + review.id)}
+                        variant="top"
+                        alt={review?.products[0]?.name ? review?.products[0]?.name : 'img'} 
                         src={ review?.images[0]?.pathToCloudStorage ?? 'https://res.cloudinary.com/duy8ow4xu/image/upload/v1683203613/vjxqwmjrpkstnnnlujoa.jpg'} 
                     />
                     <Card.Body>
@@ -81,6 +83,7 @@ export const ReviewItem = observer(({review, userId}) => {
                                     value={review?.products[0]?.averageRating} 
                                     userId={localId?.id} 
                                     productId={review?.products[0]?.id}
+                                    fetchReview={fetchReview}
                                 />
                             </ListGroup.Item>
                             <ListGroup.Item className="card_item_review">
@@ -90,7 +93,7 @@ export const ReviewItem = observer(({review, userId}) => {
                             <ListGroup.Item className="align-items-center card_item_review">
                                 <span style={{fontWeight: 'bold'}}>{t("home:tags")}:</span> 
                                 {review?.tags.map(tag => 
-                                    <div className="tag_item">
+                                    <div className="tag_item" key={tag.id}>
                                         {tag.name === "Новые" ? t("common:new") : 
                                         tag.name === "Старые" ? t("common:old") :
                                         tag.name === "Крутые" ? t("common:nice") :
@@ -115,6 +118,7 @@ export const ReviewItem = observer(({review, userId}) => {
                                 .then(data => {
                                     if (data) {
                                         setLikes(likes + 1);
+                                        fetchReview()
                                     }
                                 })
                                 .catch(error => {

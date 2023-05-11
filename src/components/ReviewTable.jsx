@@ -164,6 +164,7 @@ export const ReviewTable = observer(({myReviews, setMyReviews, fetchRewiewId}) =
                                     review.setReviewId(item) 
                                     review.setSelectedTag(item?.tags)
                                     review.setSelectedProduct(item?.products[0]?.name)
+                                    console.log(item?.products[0]?.name)
                                     review.setSelectedType(item?.types[0]?.name)
                                 }}
                             >

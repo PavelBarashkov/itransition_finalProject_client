@@ -26,7 +26,6 @@ export function LoginGoogle() {
   return (
             <GoogleLogin
                 clientId={process.env.REACT_APP_CLIENT_ID_GOOGLE}
-                
                 onSuccess={onSuccess}
                 onFailure={onFailure}
                 cookiePolicy={'single_host_origin'}
@@ -36,7 +35,7 @@ export function LoginGoogle() {
                       onClick={renderProps.onClick} 
                       style={{border: 'none', backgroundColor: 'transparent'}}
                     >
-                      <AiOutlineGoogle size={'2em'} />
+                      <AiOutlineGoogle id='text' size={'2em'} />
                     </button>
                   )}
         />

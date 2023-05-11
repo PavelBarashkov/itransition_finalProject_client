@@ -63,8 +63,8 @@ export class Service {
         return response;
     }
 
-    static async sendComment(userId, reviewId, body=null) {
-        const response = await $host.post('api/comment/create', { userId, reviewId, body });
+    static async sendComment(userId, userName, reviewId, body=null) {
+        const response = await $host.post('api/comment/create', { userId, userName, reviewId, body });
         return response;
     }
 
@@ -97,5 +97,13 @@ export class Service {
     static async getProducts() {
         const response = await $authHost.get('/api/product');
         return response;
+    }
+
+    static async getSearch(query) {
+        const {data} = await $host.get('/api/search/search', {params: {
+            query: query
+        }});
+
+        return data;    
     }
 }

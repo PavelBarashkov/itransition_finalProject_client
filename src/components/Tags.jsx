@@ -19,11 +19,20 @@
     })
     const handleChange = (event, value) => {
         review.setSelectedTag(value);
+        console.log(review.selectedTag)
+
         if (review.selectedTag) {
         setTags(value);
         }
     };
 
+
+    const handleInputChange = (event, value) => {
+        review.setSelectedTag(value.split(' ').map(tag => ({name: tag})));
+        
+        console.log(review.selectedTag)
+      };
+      
 
 
     const useStyles = makeStyles({
@@ -45,59 +54,62 @@
 
         return(
         <Autocomplete
-            ListboxProps={{ className: "list_autcompl" }}
-            style={{marginBottom: '40px'}}
-            className='Nav_Tags'
-            key={review.tags.id}
-            classes={{
-                root: classes.autocomplete,
-            }}
-            multiple
-            id="tags-outlined"
-            options={review.tags}
-            getOptionLabel={(option) => 
-                option.name === "Новые" ? t("common:new") : 
-                option.name === "Старые" ? t("common:old") :
-                option.name === "Крутые" ? t("common:nice") :
-                option.name === "Любимые" ? t("common:favorite") :
-                t(option.name) || option.name
-            }
-            filterSelectedOptions
-            onChange={handleChange}
-            value={tags ? tags : []}
-            renderInput={(params) => (
-            <TextField
-                {...params}
-                placeholder={t("home:tags")}
-                InputProps={{
-                    ...params.InputProps,
-                
-                    className: `${params.InputProps.className} Nav_Tags`
-                }}
-                InputLabelProps={{
-                    classes: {
-                        ...params.InputProps.classes,
-                        root: classes.label,
-                        shrink: classes.labelShrink,
-                        className:"Nav_Tags"
-                    },
-                    
-                }} 
-            />
+        freeSolo
+
+        ListboxProps={{ className: "list_autcompl" }}
+        style={{marginBottom: '40px'}}
+        className='Nav_Tags'
+        key={review.tags.id}
+        classes={{
+            root: classes.autocomplete,
+        }}
+        multiple
+        id="tags-outlined"
+        options={review.tags}
+        getOptionLabel={(option) => 
+            option.name === "Новые" ? t("common:new") : 
+            option.name === "Старые" ? t("common:old") :
+            option.name === "Крутые" ? t("common:nice") :
+            option.name === "Любимые" ? t("common:favorite") :
+            t(option.name) || option.name
+        }
+        filterSelectedOptions
+        onChange={handleChange}
+        value={tags ? tags : []}
+        onInputChange={handleInputChange}
+        renderInput={(params) => (
+        <TextField
+            {...params}
+            placeholder={t("home:tags")}
+            InputProps={{
+                ...params.InputProps,
             
-            )}
-            renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                    <Chip
-                        label={option.name}
-                        {...getTagProps({ index })}
-                        className='tag_form'
-                        classes={{
-                            root: classes.chip
-                        }}
-                    />
-                ))
-            }
+                className: `${params.InputProps.className} Nav_Tags`
+            }}
+            InputLabelProps={{
+                classes: {
+                    ...params.InputProps.classes,
+                    root: classes.label,
+                    shrink: classes.labelShrink,
+                    className:"Nav_Tags"
+                },
+                
+            }} 
         />
+        
+        )}
+        renderTags={(value, getTagProps) =>
+            value.map((option, index) => (
+                <Chip
+                    label={option.name}
+                    {...getTagProps({ index })}
+                    className='tag_form'
+                    classes={{
+                        root: classes.chip
+                    }}
+                />
+            ))
+        }
+    />
     )
     }

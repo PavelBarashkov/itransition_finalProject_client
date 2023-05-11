@@ -56,7 +56,7 @@ export const Home = observer(() => {
                 localId={id}
                 fetchReviews={fetchRewiewId}
             />
-            <div className="container_table" style={{height: '100vh'}}>
+            <div className="container_table" >
                 <ReviewTable 
                     myReviews={myReviews} 
                     setMyReviews={setMyReviews} 

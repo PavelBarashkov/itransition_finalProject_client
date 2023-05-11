@@ -8,12 +8,14 @@ export  class ReviewsStorage {
         this._rating = [];
         this._reviews = null;
         this._reviewId = null;
-        this._selectedProduct = [];
-        this._selectedType = {};
+        this._selectedProduct = null;
+        this._selectedType = null;
         this._selectedTag = [];
         this._page = 1;
         this._totalCount = 0;
         this._limit = 3;
+
+        this._listSearch = [];
 
         makeAutoObservable(this);
     }
@@ -61,6 +63,10 @@ export  class ReviewsStorage {
         this._totalCount = count;
     }
 
+    setListSearch(listSearch) {
+        this._listSearch = listSearch;
+    }
+
     get product() {
         return this._product;
     }
@@ -99,5 +105,9 @@ export  class ReviewsStorage {
     }
     get limit() {
         return this._limit;
+    }
+
+    get listSearch() {
+        return this._listSearch;
     }
 }
