@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 
 
 export const Review = observer(() => {
-    const wsConnection = new WebSocket('ws://localhost:5000');
+    const wsConnection = new WebSocket('wss://itransitionfinalprojectserver-production.up.railway.app');
     const {t} = useTranslation(["review", "home"])
     const {id} = useParams();
     const token = localStorage.getItem('token');

@@ -66,7 +66,10 @@
 }
 .tag_form {
     background-color: var(--backgraound-color-tags--form) !important;
+}
 
+.card-img-top {
+    cursor: pointer;
 }
 
 /*page review*/
