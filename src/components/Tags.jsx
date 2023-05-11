@@ -48,6 +48,7 @@
         },
         input: {
             // color: "white !important"
+            height: '4px'
         },
         label: {
             
@@ -87,7 +88,7 @@
             placeholder={t("home:tags")}
             InputProps={{
                 ...params.InputProps,
-            
+                
                 className: `${params.InputProps.className} Nav_Tags`
             }}
             InputLabelProps={{

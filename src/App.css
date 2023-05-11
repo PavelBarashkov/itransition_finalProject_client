@@ -262,9 +262,7 @@
     color: var(--text-color-tags);
 }
 
-
-
-.css-1h51icj-MuiAutocomplete-root .MuiOutlinedInput-root {
+.my-autocomplete .MuiOutlinedInput-root {
+    max-height: 38px;
     padding: 0 !important;
-    height: 37px !important;
-}
+  }

@@ -25,15 +25,7 @@ export const Product = observer(({data}) => {
     };
    
     const useStyles = makeStyles({
-        autocomplete: {
-        },
-        input: {
-        },
-        label: {
-           
 
-        },
-        
     });
     const classes = useStyles();
     const test = [{
@@ -42,34 +34,37 @@ export const Product = observer(({data}) => {
 
     return (
         <Autocomplete
-          freeSolo
-          ListboxProps={{ className: "list_autcompl" }}
-          classes={{root: classes.autocomplete}}
-          style={{borderRadius: 5, }}
-          options={data}
-          getOptionLabel={(item) => item.name}
-          renderInput={(params) => 
-            <TextField 
-              {...params} 
-              onChange={(e) => review.setSelectedProduct(e.target.value)}
-              InputProps={{
-                ...params.InputProps,
-                classes: {
-                  ...params.InputProps.classes,
-                  input: classes.input,
-                },
-                className: `${params.InputProps.className} Nav_Tags`
-              }}
-              InputLabelProps={{
-                classes: {
+        className="my-autocomplete"
+            freeSolo
+            ListboxProps={{ className: "list_autcompl" }}
+            classes={{root: classes.autocomplete}}
+            style={{borderRadius: 5, }}
+            options={data}
+            getOptionLabel={(item) => item.name}
+            renderInput={(params) => 
+                <TextField 
+                {...params} 
+                onChange={(e) => review.setSelectedProduct(e.target.value)}
+                InputProps={{
+                    ...params.InputProps,
+                    classes: {
                     ...params.InputProps.classes,
-                    className:"Nav_Tags"
-                },
-              }}
-            />
-          }
-          onChange={handleProductSelect}
-          value={selectedProduct === null ? test.name : selectedProduct}
+                    input: classes.input,
+                    },
+                    className: `${params.InputProps.className} Nav_Tags`
+                }}
+                InputLabelProps={{
+                    classes: {
+                        ...params.InputProps.classes,
+                        root: classes.label,
+                        shrink: classes.labelShrink,
+                        className:"Nav_Tags"
+                    },
+                }}
+                />
+            }
+            onChange={handleProductSelect}
+            value={selectedProduct === null ? test.name : selectedProduct}
         />
       );
 })
