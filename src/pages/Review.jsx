@@ -16,6 +16,7 @@ import {BasicRating} from "../components/Rating"
 import ReactMarkdown from 'react-markdown';
 import { FaRegHeart } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { ReviewList } from "../components/ReviewList";
 
 
 export const Review = observer(() => {
@@ -34,7 +35,7 @@ export const Review = observer(() => {
     const [likes, setLikes] = useState(0 );
     const [commentValue, setCommentValue] = useState('');
     const [review, setReview] = useState({});
-    
+    const [reviewsProduct, setReviewsProduct] = useState([]);
     const [fetchRewiewId, isRewiewIdLoading, rewiewIdError] = useFetching(async ()=> {
         await Service.getRewiewId(id).then(response => {
             setReview(response)
@@ -50,6 +51,12 @@ export const Review = observer(() => {
     });
 
    
+    const [fetchreviewsProduct, isReviewsProductLoading, reviewsProductError] = useFetching(async () => {
+        if(review?.userId) {
+            await Service.getReviewForProduct(review?.products[0]?.id).then(response => setReviewsProduct(response));    
+        }
+            
+    });
 
     const sendComment =  async() => {
         await Service.sendComment(localId.id, localId.name, Number(id), commentValue);
@@ -66,10 +73,12 @@ export const Review = observer(() => {
 
     useEffect(() => {
         fetchRewiewId();
-    }, []);
+        window.scrollTo(0, 0);
+    }, [id]);
 
     useEffect(() => {
         fetchUser()
+        fetchreviewsProduct();
     }, [review]);
 
     useEffect(() => {
@@ -114,9 +123,11 @@ export const Review = observer(() => {
                         src={(review?.images && review.images[0]?.pathToCloudStorage) ?? 'https://res.cloudinary.com/duy8ow4xu/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1682329996/wfk8yzc7xrlvadr3trwn.jpg?_s=public-apps'} 
                     />
                     <BasicRating 
+                        localId={localId}
                         value={review?.products && review?.products[0]?.averageRating} 
                         userId={localId?.id} 
                         productId={review?.products && review?.products[0]?.id}
+                        fetchReview={fetchRewiewId}
                     />
                     </Card>
                 </Col>
@@ -202,7 +213,8 @@ export const Review = observer(() => {
                 
             </Row>
             <Comment review={review} userId={localId}/>
-            <FloatingLabel id="text" label={t("comment")}>
+            {localId && (
+                <FloatingLabel id="text" label={t("comment")}>
                 <Form.Control
                     disabled={!localId?.id}
                     className="form_comment"
@@ -218,13 +230,17 @@ export const Review = observer(() => {
                 />
                 <Button 
                     disabled={!localId?.id  || !commentValue}
-                    style={{marginTop: '20px'}}
+                    style={{marginTop: '20px', marginBottom: '20px'}}
                     variant="outline-success"
                     onClick={() => sendComment()}
                 >
                     {t("review:send")}
                 </Button>
             </FloatingLabel>
+            )}
+
+            <ReviewList  reviews={reviewsProduct}/>
+            
         </Container>
     )
 

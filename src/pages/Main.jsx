@@ -1,6 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap"
 import { ReviewCard } from "../components/ReviewItem"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { Service } from "../API/Service"
 import { useFetching } from "../hooks/useFetching"
 import { Context } from ".."
@@ -25,7 +25,7 @@ export const Main = observer(() => {
         
     })
     
-    
+  
 
     const [tags, setTags] = useState(null)
     useEffect(() => {
@@ -48,7 +48,7 @@ export const Main = observer(() => {
                 <Col md={9} >
                     {review.reviews && review.reviews.length > 0 
                         ? (
-                            <ReviewList fetchReview={fetchReview}/>
+                            <ReviewList reviews={review.reviews} fetchReview={fetchReview}/>
                         ) 
                         : (
                             <Col style={{textAlign: 'center'}} md={12}>{t("noReviews")}</Col>
