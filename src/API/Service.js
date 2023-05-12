@@ -1,4 +1,3 @@
-import axios from "axios";
 import { $authHost, $host } from "./http/index";
 
 export class Service {
@@ -30,6 +29,14 @@ export class Service {
         const response = await $authHost.get('/api/user/');
         return response;
     }
+    static  async deleteUserId(id) {
+        const response =  await $authHost.delete(`/api/user/users/${id}`);
+        return response;
+    }
+    static async dataUpdateId(id, status='active', role='USER') {
+        const response = await $authHost.put(`/api/user/user/${id}`, {status, role});
+        return response;
+    } 
 
     static async getTags() {
         const {data} = await $host.get('api/tag');
@@ -43,6 +50,11 @@ export class Service {
 
     static async getReviewsUserId(id) {
         const {data} = await $authHost.get(`api/review/user/${id}`);
+        return data;
+    }
+
+    static async getReviewForProduct(id) {
+        const {data}  = await $host.get(`/api/review/product/${id}`);
         return data;
     }
 

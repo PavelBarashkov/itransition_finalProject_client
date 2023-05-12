@@ -1,6 +1,7 @@
 .app_container {
     background-color: var(--backgraound-color);
     min-height: 100vh !important;
+    padding-bottom: 25px;
  }
 
 
@@ -268,4 +269,21 @@
 .my-autocomplete .MuiOutlinedInput-root {
     max-height: 38px;
     padding: 0 !important;
+}
+
+
+/*admin page*/
+.btn_create {
+    display: flex;
+    flex-direction: column;
+    align-items:start;
+    row-gap: 5px;
+}
+
+  /*media*/
+
+  @media (max-width: 767px) {
+    .review_info {
+        margin-top: 25px;
+    }
   }

@@ -44,7 +44,6 @@ export const ReviewTable = observer(({myReviews, setMyReviews, fetchRewiewId}) =
     const handleSelectChange = (event, item) => {
         item.selected = !item.selected;
         setMyReviews({ ...myReviews });
-        console.log(item);
     }
 
     const deleteReview = async (id) => {
