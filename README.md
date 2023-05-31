@@ -1,70 +1,17 @@
-# Getting Started with Create React App
+# Сайт для управления рекомендациями "Что посмотреть/Что почитать/Во что поиграть и т.д."
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Этот репозиторий содержит исходный код для веб-сайта, предназначенного для управления рекомендациями различных видов контента.<br> Сайт разработан с использованием следующих технологий:<br> Node.js + Express + PostgreSQL + React + React-Bootstrap.
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Основные функции
+* **Режим "read-only" для неаутентифицированных пользователей**
+   * Неаутентифицированные пользователи имеют доступ только к режиму "read-only". Они могут выполнять поиск по сайту, но не могут создавать обзоры, оставлять комментарии, ставить лайки или рейтинги.
+* **Аутентифицированные пользователи**
+    * Полный доступ: Аутентифицированные пользователи имеют полный доступ ко всем функциям сайта, за исключением административной панели.
+    * Административная панель
+* **Аутентификация через социальные сети**
+    * Поддержка социальной аутентификации: Пользователи могут аутентифицироваться на сайте с помощью Google и Facebook
+* **Личная страница пользователя и управление обзорами**
+    * Личная страница пользователя: Каждый пользователь имеет свою личную страницу, на которой он может просмотреть список своих обзоров.
+    * Таблица с фильтрацией и сортировкой: На личной странице пользователя отображается таблица с фильтрацией и сортировкой обзоров. Пользователь может создавать, удалять и редактировать обзоры
+* **Управление изображениями**
+    * Загрузка изображений: Все изображения сохраняются в облачном хранилище и могут быть загружены на сайт с помощью драг-н-дропа.
